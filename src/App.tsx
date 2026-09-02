@@ -91,7 +91,48 @@ function App() {
 };
   const [selectedService, setSelectedService] = useState("");
   const [contactMessage, setContactMessage] = useState("");
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
 
+  const form = event.currentTarget;
+  const formData = new FormData(form);
+
+  const data = {
+    name: formData.get("name"),
+    email: formData.get("email"),
+    organization: formData.get("organization"),
+    service: formData.get("service"),
+    message: formData.get("message"),
+  };
+
+  try {
+    const response = await fetch("/api/send-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.message || "Something went wrong.");
+    }
+
+    alert("Your inquiry has been sent successfully.");
+
+    form.reset();
+    setSelectedService("");
+    setContactMessage("");
+  } catch (error) {
+    console.error(error);
+
+    alert(
+      "Sorry, your inquiry could not be sent. Please try again."
+    );
+  }
+};
   const handleServiceSelect = (
   service: keyof typeof serviceMessages,
   serviceName: string
@@ -728,13 +769,23 @@ function App() {
                 technology-focused content and conversations.
               </p>
 
-              <a
-                href="#contact"
-                className="service-link"
-              >
-                Discuss Brand Positioning
-                <span>↗</span>
-              </a>
+              <button
+  type="button"
+  className="service-link"
+  onClick={() => {
+    handleServiceSelect(
+      "positioning",
+      "Technology Influence & Brand Positioning"
+    );
+
+    document.getElementById("contact")?.scrollIntoView({
+      behavior: "smooth"
+    });
+  }}
+>
+  Discuss Brand Positioning
+  <span>↗</span>
+</button>
 
             </article>
 
@@ -759,13 +810,23 @@ function App() {
                 with performance, usability and search visibility in mind.
               </p>
 
-              <a
-                href="#contact"
-                className="service-link"
-              >
-                Start a Website Project
-                <span>↗</span>
-              </a>
+              <button
+  type="button"
+  className="service-link"
+  onClick={() => {
+    handleServiceSelect(
+      "website",
+      "Website Development"
+    );
+
+    document.getElementById("contact")?.scrollIntoView({
+      behavior: "smooth"
+    });
+  }}
+>
+  Start a Website Project
+  <span>↗</span>
+</button>
 
             </article>
 
@@ -790,13 +851,23 @@ function App() {
                 to real-world applications.
               </p>
 
-              <a
-                href="#contact"
-                className="service-link"
-              >
-                Discuss Training
-                <span>↗</span>
-              </a>
+              <button
+  type="button"
+  className="service-link"
+  onClick={() => {
+    handleServiceSelect(
+      "education",
+      "Blockchain & Web3 Education"
+    );
+
+    document.getElementById("contact")?.scrollIntoView({
+      behavior: "smooth"
+    });
+  }}
+>
+  Discuss Training
+  <span>↗</span>
+</button>
 
             </article>
 
@@ -821,13 +892,23 @@ function App() {
                 and the future of technology.
               </p>
 
-              <a
-                href="#contact"
-                className="service-link"
-              >
-                Invite Prisca to Speak
-                <span>↗</span>
-              </a>
+              <button
+  type="button"
+  className="service-link"
+  onClick={() => {
+    handleServiceSelect(
+      "speaking",
+      "Paid Speaking Engagement"
+    );
+
+    document.getElementById("contact")?.scrollIntoView({
+      behavior: "smooth"
+    });
+  }}
+>
+  Invite Ms. Prisca to Speak
+  <span>↗</span>
+</button>
 
             </article>
 
@@ -852,13 +933,23 @@ function App() {
                 documentation, thought leadership and digital content.
               </p>
 
-              <a
-                href="#contact"
-                className="service-link"
-              >
-                Discuss a Writing Project
-                <span>↗</span>
-              </a>
+              <button
+  type="button"
+  className="service-link"
+  onClick={() => {
+    handleServiceSelect(
+      "writing",
+      "Technical Writing & Editing"
+    );
+
+    document.getElementById("contact")?.scrollIntoView({
+      behavior: "smooth"
+    });
+  }}
+>
+  Discuss a Writing Project
+  <span>↗</span>
+</button>
 
             </article>
 
@@ -884,13 +975,23 @@ function App() {
                 decisions.
               </p>
 
-              <a
-                href="#contact"
-                className="service-link"
-              >
-                Discuss Your Challenge
-                <span>↗</span>
-              </a>
+              <button
+  type="button"
+  className="service-link"
+  onClick={() => {
+    handleServiceSelect(
+      "consulting",
+      "IT Consulting"
+    );
+
+    document.getElementById("contact")?.scrollIntoView({
+      behavior: "smooth"
+    });
+  }}
+>
+  Discuss Your Challenge
+  <span>↗</span>
+</button>
 
             </article>
 
@@ -1292,7 +1393,10 @@ function App() {
 
     <div className="contact-form-wrapper">
 
-      <form className="contact-form">
+      <form
+  className="contact-form"
+  onSubmit={handleSubmit}
+>
 
         <div className="form-row">
 
@@ -1357,38 +1461,7 @@ function App() {
   onChange={(event) => setSelectedService(event.target.value)}
   required
 >
-  <option value="" disabled>
-    Select a service
-  </option>
 
-  <option value="Technology Influence & Brand Positioning">
-    Technology Influence & Brand Positioning
-  </option>
-
-  <option value="Website Development">
-    Website Development
-  </option>
-
-  <option value="Blockchain & Web3 Education">
-    Blockchain & Web3 Education
-  </option>
-
-  <option value="Paid Speaking Engagement">
-    Paid Speaking Engagement
-  </option>
-
-  <option value="Technical Writing & Editing">
-    Technical Writing & Editing
-  </option>
-
-  <option value="IT Consulting">
-    IT Consulting
-  </option>
-
-  <option value="General Inquiry">
-    General Inquiry
-  </option>
-</select>
 
             <option value="" disabled>
               Select a service
