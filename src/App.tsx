@@ -452,15 +452,17 @@ function App() {
     <p>
       Prisca is the founder of
       <strong> AptNiche</strong>, an AI automation and business
-      workflow optimization company helping organizations identify
+      workflow optimization company helping organizations 
+      <strong>in any niche</strong> - <strong>AUTOMATE</strong>, identify
       what can be automated, understand where AI fits into their
-      operations, position themselves for an AI-driven future and
-      transform their workflows through intelligent systems.
+      operations, <strong>POSITION</strong>, put themselves at the 
+      forefront of an AI-driven future and <strong>TRANSFORM</strong>,
+      implement and integrate their workflows through intelligent systems.
     </p>
 
     <p>
-      AptNiche brings together automation, artificial intelligence
-      and business strategy to help organizations move from simply
+      AptNiche brings together <strong>automation, artificial intelligence</strong>
+      and <strong>business strategy</strong> to help organizations move from simply
       experimenting with emerging technology to using it with
       purpose.
     </p>
