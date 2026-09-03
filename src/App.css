@@ -684,8 +684,13 @@
   align-items: center;
 }
 
-.about-image-wrapper {
-  position: relative;
+.about-image {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  object-position: center top;
 }
 
 .image-frame {
@@ -693,6 +698,14 @@
   background: #758579;
   aspect-ratio: 4 / 5;
   overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+
+.about-image-wrapper {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .image-placeholder {
@@ -724,6 +737,34 @@
 
 .image-caption span {
   text-align: right;
+}
+
+@media (max-width: 768px) {
+  .about-grid {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .about-image-wrapper {
+    width: 100%;
+    max-width: 320px;
+    min-width: 0;
+    margin: 0 auto;
+  }
+
+  .image-frame {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .about-image {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
 }
 
 .about-intro {

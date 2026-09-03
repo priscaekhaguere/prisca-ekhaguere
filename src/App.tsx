@@ -366,10 +366,11 @@ function App() {
 
         {/* YOUR PHOTO WILL GO HERE */}
 
-        <div className="image-placeholder">
-          <span>PE</span>
-        </div>
-
+        <img
+          src="/prisca-image.jpg"
+          alt="Prisca Ekhaguere"
+          className="about-image"
+        />
       </div>
 
       <p className="image-caption">
