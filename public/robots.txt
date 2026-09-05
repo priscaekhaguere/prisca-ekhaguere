@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://prisca-ekhaguere.vercel.app/sitemap.xml
+Sitemap: https://prisca.tech/sitemap.xml
