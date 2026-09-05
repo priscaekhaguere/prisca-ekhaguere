@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
 const rotatingWords = [
-  "research.",
-  "build.",
-  "teach.",
-  "create.",
+  "research...",
+  "build...",
+  "teach...",
+  "create...",
   "transform.",
 ];
 
@@ -67,6 +67,7 @@ function App() {
   const [wordIndex, setWordIndex] = useState(0);
   const [displayedWord, setDisplayedWord] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
+  const [showNewsletterThankYou, setShowNewsletterThankYou] = useState(false);
   const audienceCount = useCountUp(50000);
   const speakingCount = useCountUp(100, 1800);
   const mentoringCount = useCountUp(10000, 2200);
@@ -248,7 +249,7 @@ function App() {
 
         <a href="#influence">
           <span>03</span>
-          Reach
+          Influence
         </a>
 
         <a href="#services">
@@ -375,7 +376,7 @@ function App() {
 
       <p className="image-caption">
         PRISCA EKHAGUERE
-        <span>EMERGING TECHNOLOGY · RESEARCH</span>
+        <span>EMERGING TECH · RESEARCH</span>
       </p>
 
     </div>
@@ -594,14 +595,14 @@ function App() {
 </section>
 
 
-{/* TECHNOLOGY INFLUENCE */}
+{/* INFLUENCE */}
 
 <section className="influence-section" id="influence">
 
   <div className="influence-content">
 
     <p className="eyebrow">
-      TECHNOLOGY INFLUENCE
+      INFLUENCE
     </p>
 
     <h2>
@@ -1609,7 +1610,7 @@ function App() {
       </h2>
 
       <p>
-        Emerging Tech Today is Prisca Ekhaguere's newsletter on the
+        <strong>Emerging Tech Today</strong> is Prisca Ekhaguere's newsletter on the
         technologies, ideas and opportunities shaping the future —
         from artificial intelligence and robotics to blockchain,
         Web3, automation and other emerging technologies.
@@ -1625,40 +1626,65 @@ function App() {
       </p>
 
       <form
-        className="newsletter-form"
-        onSubmit={(event) => {
-          event.preventDefault();
+  className="newsletter-form"
+  action="https://app.kit.com/forms/9885568/subscriptions"
+  method="post"
+  target="kit-newsletter-frame"
+  onSubmit={(event) => {
+    const form = event.currentTarget;
+    const input = form.elements.namedItem(
+      "email_address"
+    ) as HTMLInputElement;
 
-          const form = event.currentTarget;
-          const input = form.elements.namedItem(
-            "newsletter-email"
-          ) as HTMLInputElement;
+    if (!input.value.trim()) {
+      event.preventDefault();
+      return;
+    }
 
-          if (!input.value) return;
+    // Show the thank-you popup
+    setShowNewsletterThankYou(true);
 
-          alert(
-            "Thank you for subscribing to Emerging Tech Today."
-          );
+    // Clear the email field after submission
+    setTimeout(() => {
+      form.reset();
+    }, 100);
+  }}
+>
+  <input
+    type="email"
+    name="email_address"
+    placeholder="Your email address"
+    aria-label="Your email address"
+    autoComplete="email"
+    required
+  />
 
-          form.reset();
-        }}
-      >
+  <button type="submit">
+    SUBSCRIBE
+    <span>↗</span>
+  </button>
+</form>
 
-        <input
-          type="email"
-          name="newsletter-email"
-          placeholder="Your email address"
-          aria-label="Your email address"
-          autoComplete="email"
-          required
-        />
+<iframe
+  name="kit-newsletter-frame"
+  title="Newsletter subscription"
+  style={{ display: "none" }}
+/>
+{showNewsletterThankYou && (
+  <div className="newsletter-thank-you">
+    <div className="newsletter-thank-you-content">
 
-        <button type="submit">
-          SUBSCRIBE
-          <span>↗</span>
-        </button>
+      <div className="newsletter-thank-you-icon">✓</div>
 
-      </form>
+      <h3>You're subscribed!</h3>
+
+      <p>
+        Thank you for subscribing to Emerging Tech Today.
+      </p>
+
+    </div>
+  </div>
+)}
 
       <p className="newsletter-note">
         No noise. Just emerging technology worth knowing about.
