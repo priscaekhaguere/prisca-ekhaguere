@@ -318,7 +318,7 @@ function App() {
             <div className="hero-actions">
 
               <a href="#about" className="primary-button">
-                Explore My Work
+                About Me
                 <span>↗</span>
               </a>
 
