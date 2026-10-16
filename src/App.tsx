@@ -178,10 +178,12 @@ function App() {
     return () => clearTimeout(timer);
   }, [displayedWord, isDeleting, wordIndex]);
   
+
 useEffect(() => {
-  const closeMenuOnScroll = () => {
+  const closeMenu = () => {
     const menu = document.getElementById("navigation-menu");
-    const button = document.querySelector<HTMLButtonElement>(".menu-toggle");
+    const button =
+      document.querySelector<HTMLButtonElement>(".menu-toggle");
 
     if (!menu || !button) return;
 
@@ -191,10 +193,30 @@ useEffect(() => {
     button.setAttribute("aria-label", "Open navigation menu");
   };
 
-  window.addEventListener("scroll", closeMenuOnScroll, { passive: true });
+  const handleOutsideClick = (event: PointerEvent) => {
+    const menu = document.getElementById("navigation-menu");
+    const button =
+      document.querySelector<HTMLButtonElement>(".menu-toggle");
+
+    if (!menu || !button) return;
+
+    const target = event.target;
+
+    if (
+      target instanceof Node &&
+      !menu.contains(target) &&
+      !button.contains(target)
+    ) {
+      closeMenu();
+    }
+  };
+
+  window.addEventListener("scroll", closeMenu, { passive: true });
+  document.addEventListener("pointerdown", handleOutsideClick);
 
   return () => {
-    window.removeEventListener("scroll", closeMenuOnScroll);
+    window.removeEventListener("scroll", closeMenu);
+    document.removeEventListener("pointerdown", handleOutsideClick);
   };
 }, []);
 
