@@ -45,7 +45,7 @@ function useCountUp(target: number, duration: number = 1600) {
         (timestamp - startTime) / duration,
         1
       );
-
+  
       const easedProgress =
         1 - Math.pow(1 - progress, 3);
 
@@ -177,6 +177,27 @@ function App() {
 
     return () => clearTimeout(timer);
   }, [displayedWord, isDeleting, wordIndex]);
+  
+useEffect(() => {
+  const closeMenuOnScroll = () => {
+    const menu = document.getElementById("navigation-menu");
+    const button = document.querySelector<HTMLButtonElement>(".menu-toggle");
+
+    if (!menu || !button) return;
+
+    menu.classList.remove("menu-open");
+    button.classList.remove("menu-active");
+    button.setAttribute("aria-expanded", "false");
+    button.setAttribute("aria-label", "Open navigation menu");
+  };
+
+  window.addEventListener("scroll", closeMenuOnScroll, { passive: true });
+
+  return () => {
+    window.removeEventListener("scroll", closeMenuOnScroll);
+  };
+}, []);
+
 
   return (
     <div className="site-shell">
